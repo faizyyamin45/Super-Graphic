@@ -20,3 +20,8 @@ ADMIN-ACCESS.txt
 
 # Unused brand assets from the supplied framework
 brand/
+
+# Built Hostinger upload bundle and local PHP dependencies/configuration
+hostinger/vendor/
+hostinger/config.php
+hostinger-build/

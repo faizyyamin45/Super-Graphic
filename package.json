@@ -7,6 +7,7 @@
     "dev": "node scripts/dev.mjs",
     "prebuild": "node scripts/check-details.mjs",
     "build": "vite build",
+    "build:hostinger": "node scripts/build-hostinger.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "check": "node scripts/check-details.mjs",

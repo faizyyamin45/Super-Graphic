@@ -9,7 +9,7 @@ Images are decoded and converted to WebP automatically. Image files and metadata
 The three newest uploads appear on the homepage. All images appear in Our work. Captions and categories can be edited. Deletion removes both the database record and file.
 
 ## Production
-For the selected GitHub + Render + MongoDB setup, follow **RENDER-DEPLOY.md**. The settings below describe the alternative SQLite/filesystem deployment. With MONGODB_URI configured, the server uses Atlas and GridFS instead of MEDIA_DATA_DIR.
+For the selected **Hostinger File Manager + PHP + MongoDB** setup, follow **HOSTINGER-UPLOAD.md**. The settings below describe the alternative Node.js/SQLite deployment. The Node backend also supports Atlas via MONGODB_URI, as described in RENDER-DEPLOY.md.
 
 Use a Node.js 24+ host with persistent disk, an HTTPS reverse proxy, and these environment variables:
 
