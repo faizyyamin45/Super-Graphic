@@ -4,6 +4,14 @@ The Node web service serves the website, admin and API on one domain. MongoDB At
 
 ## Deploy
 
+### Standard web service (no Blueprint needed)
+
+Choose **New > Web Service**, select `faizyyamin45/Super-Graphic`, and use branch `main`. Leave Root Directory empty. Set Build Command to `npm ci --include=dev && npm run build` and Start Command to `npm start`. Select the **Free ($0/month)** compute plan explicitly; the form may initially select a paid plan. Use **Add from .env > Choose a file** to import the separately supplied private `Super-Graphic-Render.env`, then click **Add variables**. Set the health-check path to `/api/media` under Advanced, then deploy. The database access and verification steps below also apply.
+
+### Blueprint alternative
+
+Blueprint creation can ask for card verification even when the YAML selects a free service. The standard Web Service flow above offers the same application setup without relying on Blueprint creation.
+
 1. Sign in to https://dashboard.render.com with GitHub.
 2. Choose **New > Blueprint** and connect `faizyyamin45/Super-Graphic`, branch `main`. Give Render access to this private repository when prompted.
 3. Render reads `render.yaml`. It selects Node 24, builds with `npm ci --include=dev && npm run build`, then starts `npm start`.
