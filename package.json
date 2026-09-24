@@ -23,6 +23,7 @@
     "express-rate-limit": "^8.7.0",
     "framer-motion": "^13.1.1",
     "lucide-react": "^1.34.0",
+    "mongodb": "^7.6.0",
     "multer": "^2.4.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

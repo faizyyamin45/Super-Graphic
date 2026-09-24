@@ -21,7 +21,7 @@ The current prepared workspace is already configured; its credentials are suppli
 - Three original project-photo slides with different headlines and descriptions. Consistent dimensions: 720px desktop, 640px tablet and 590px phone height, with a 780px wide-desktop layout.
 - Twenty-three original gallery project images. Filter by service and view full-size images.
 - Authenticated image administration: upload, preview, categorize, caption, edit and delete.
-- SQLite and filesystem storage. New uploads publish immediately to Our work; the three newest appear on the homepage.
+- MongoDB Atlas and GridFS storage for deployment, with SQLite/filesystem support for local development. New uploads publish immediately to Our work; the three newest appear on the homepage.
 - Call-first navigation, About, Contact, Quote, FAQs and mobile menu.
 
 ## Build and verify
@@ -34,7 +34,7 @@ npm run lint
 Build and backend tests pass. Lint has no errors; six inherited Fast Refresh code-organization warnings remain.
 
 ## Production hosting
-The image admin requires Node.js hosting and persistent storage. Serving only dist/ as a static website does not provide uploads. See MEDIA-SETUP.md for deployment configuration.
+Deploy the website and admin together from GitHub to Render using the included render.yaml. See RENDER-DEPLOY.md. MongoDB Atlas stores uploaded images and gallery data independently of Render deployments; no persistent Render disk is required. Serving only dist/ as a static website does not provide uploads. See MEDIA-SETUP.md for the local SQLite alternative.
 The current local preview has not replaced supergraphic.ae.
 
 ## Content and editing

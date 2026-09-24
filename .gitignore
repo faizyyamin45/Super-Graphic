@@ -6,6 +6,7 @@ dist/
 # Local credentials and machine-specific configuration
 .env
 .env.*
+*.env
 !.env.example
 .admin-access.txt
 ADMIN-ACCESS.txt
