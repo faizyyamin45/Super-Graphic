@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Local credentials and machine-specific configuration
+.env
+.env.*
+!.env.example
+.admin-access.txt
+ADMIN-ACCESS.txt
+
+# Persistent runtime data and backups
+.media-data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+
+# Unused brand assets from the supplied framework
+brand/

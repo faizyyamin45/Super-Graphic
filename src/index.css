@@ -1,0 +1,112 @@
+/* Fonts are preconnected + loaded from index.html so they do not block CSS parsing. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --header-h: 76px; }
+.media-masonry { columns: 3; column-gap: 1.75rem; }
+.media-tile { display: inline-block; width: 100%; break-inside: avoid; margin: 0 0 2rem; vertical-align: top; }
+.media-home-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 1.75rem; }
+.media-home-grid .media-tile { display: block; margin: 0; min-width: 0; }
+.media-home-grid .media-image-button { aspect-ratio: 4 / 3; width: 100%; }
+.media-home-grid .media-image-button img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .media-home-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 540px) { .media-home-grid { grid-template-columns: minmax(0, 1fr); } }
+.media-image-button { display: block; position: relative; width: 100%; overflow: hidden; border-radius: .85rem; background: #EAEFF5; }
+.media-image-button img { display: block; width: 100%; height: auto; transition: transform 200ms ease-out; }
+.media-image-button:hover img { transform: scale(1.025); }
+.media-image-button:focus-visible { outline: 3px solid #426000; outline-offset: 4px; }
+.media-expand { position: absolute; inset-inline-end: .75rem; bottom: .75rem; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: white; color: #101828; }
+.media-dialog { border: 0; padding: 0; width: min(94vw, 960px); max-height: 92dvh; border-radius: 1rem; color: #101828; }
+.media-dialog::backdrop { background: rgb(10 20 30 / .85); }
+@media (max-width: 900px) { .media-masonry { columns: 2; } }
+@media (max-width: 540px) { .media-masonry { columns: 1; } }
+@media (prefers-reduced-motion: reduce) { .media-image-button img { transition: none; } }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+:focus-visible { outline: 2px solid #426000; outline-offset: 4px; }
+body { @apply bg-plaster text-ink font-sans antialiased; }
+::selection { background: #C6F33B; color: #101828; }
+
+/* ---------- Arabic / RTL ---------- */
+html.is-rtl body { @apply font-arabic; }
+html.is-rtl .font-display { font-family: "IBM Plex Sans Arabic", "Instrument Sans", system-ui, sans-serif; }
+/* Latin-only display faces read poorly for Arabic numerals in mono contexts;
+   keep the mono face for SKUs but let Arabic text fall back to the Arabic stack. */
+html.is-rtl .font-mono:not(.keep-latin) { font-family: "IBM Plex Sans Arabic", ui-monospace, monospace; letter-spacing: 0; }
+html.is-rtl .eyebrow { letter-spacing: 0; }
+/* The marquee translates negatively in both directions; flip it for RTL reading order. */
+html.is-rtl .animate-marquee { animation-name: marquee-rtl; }
+@keyframes marquee-rtl { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
+
+@layer components {
+  .container-x { @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10; }
+  .eyebrow { @apply font-sans text-[13px] font-semibold tracking-wide; }
+  .btn { @apply inline-flex items-center justify-center gap-2 font-semibold rounded-full px-7 py-3.5 text-[15px] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2; }
+  .btn-weld { @apply btn bg-weld text-ink hover:bg-weld-dark hover:shadow-lift focus-visible:outline-ink; }
+  .btn-ink { @apply btn bg-ink text-plaster hover:bg-ink-soft focus-visible:outline-ink; }
+  .btn-ghost { @apply btn border-2 border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-plaster focus-visible:outline-ink; }
+  .btn-light { @apply btn bg-plaster text-ink hover:bg-white focus-visible:outline-plaster; }
+  .btn-outline-light { @apply btn border-2 border-plaster/25 text-plaster hover:bg-plaster/10 focus-visible:outline-plaster; }
+  .plate { @apply bg-white rounded-2xl shadow-plate border border-ink/5; }
+  /* 16px at mobile: iOS zooms the whole page when a focused input is under 16px */
+  .field { @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-[16px] sm:text-[15px] placeholder:text-ink/65 focus:border-ink focus:ring-2 focus:ring-ink/20 focus:outline-none transition; }
+  .field-error { @apply border-red-700 ring-2 ring-red-700/15; }
+  /* Expands the tap area of a small control to ~44px without resizing it. */
+  .tap { @apply relative after:absolute after:inset-0 after:-m-3 after:content-[""]; }
+  .label { @apply block font-mono text-[11px] tracking-[0.18em] uppercase text-ink/60 mb-1.5; }
+  /* Keyboard-only escape hatch past the fixed header. */
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:start-3 focus:z-[100] focus:px-5 focus:py-3 focus:rounded-full focus:bg-ink focus:text-plaster focus:font-semibold; }
+}
+
+.text-photo {
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* Fallback for engines that cannot clip a background to text. */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-photo { color: #426000; background: none; }
+}
+
+.tick-strip { mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* The photo inside the headline letters drifts slowly, so the type reads as a
+   lit surface rather than a flat fill. Paused for reduced-motion below. */
+.text-photo { animation: photoPan 18s ease-in-out infinite; }
+
+/* Gloss that crosses a card once on hover — a highlight travelling over
+   brushed steel. Purely decorative and pointer-only. */
+.sheen-host { position: relative; overflow: hidden; isolation: isolate; }
+.sheen-host::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 45%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sheen-host:hover::after { opacity: 1; animation: sheen .9s ease-out; }
+}
+
+/* Neon halo for the mark — sodium-lamp warmth, not a glow-everything effect. */
+.neon-dot { box-shadow: 0 0 6px 1px rgba(198,243,59,.85), 0 0 14px 3px rgba(198,243,59,.4); }
+.neon-text { text-shadow: none; }
+
+/* Prevent background scroll while a modal or the mobile menu owns the screen. */
+body.overflow-locked { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+  .text-photo { animation: none; }
+  .sheen-host:hover::after { animation: none; opacity: 0; }
+}
